@@ -39,7 +39,7 @@ var sourceWithOperators = (0, rxjs_1.from)([1, 2, 3, 4, 5])
 //   ).map((res:any)=>res*2);
 //   source1.subscribe((res:any)=>console.log(res));
 var source2 = (0, rxjs_1.from)([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20]).pipe((0, operators_1.filter)(function (res) { return res % 2 === 0; }), (0, operators_1.map)(function (res) { return res * 3; }));
-//   output
+//   output result
 //   6
 //   12
 //   18

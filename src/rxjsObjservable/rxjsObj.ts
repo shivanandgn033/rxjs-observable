@@ -52,7 +52,7 @@ const sourceWithOperators = from([1, 2, 3, 4, 5])
       filter((res:number)=>res%2===0),
       map((res:number)=>res*3)
   );
-//   output
+//   output result
 //   6
 //   12
 //   18
