@@ -35,7 +35,7 @@ singlevaluecheck.subscribe((res:any)=>console.log("single value:",res));
 //const intervalObservable = interval(1000); // Emits every 1 second
 //intervalObservable.subscribe((value:any) => console.log('Interval:', value));
 
-// Example using operators
+// Example using operators...
 const sourceWithOperators = from([1, 2, 3, 4, 5])
   .pipe(
     filter((value:number )=> value % 2 === 0), // Filter even numbers
