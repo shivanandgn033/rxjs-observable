@@ -29,7 +29,7 @@ singlevaluecheck.subscribe(function (res) { return console.log("single value:", 
 // Create an Observable that emits numbers every second
 //const intervalObservable = interval(1000); // Emits every 1 second
 //intervalObservable.subscribe((value:any) => console.log('Interval:', value));
-// Example using operators
+// Example using operators...
 var sourceWithOperators = (0, rxjs_1.from)([1, 2, 3, 4, 5])
     .pipe((0, operators_1.filter)(function (value) { return value % 2 === 0; }), // Filter even numbers
 (0, operators_1.map)(function (value) { return value * 2; }) // Double the values
@@ -81,7 +81,7 @@ var observable2 = new rxjs_1.Observable(function (res) {
         res.next('rxjs call method 2');
         res.next('rxjs call method 3');
         res.next();
-    }, 1000);
+    }, 3);
 });
 observable2.pipe((0, operators_1.filter)(function (res) { return res == 'rxjs call method 1'; }), (0, operators_1.map)(function (res) { return res = "objservable " + res; })).subscribe(function (res) { return console.log(res); });
 // operators:
@@ -91,18 +91,78 @@ observable2.pipe((0, operators_1.filter)(function (res) { return res == 'rxjs ca
 // take: Emits only the first 'n' values emitted by the source Observable.
 // takeUntil: Subscribes and operates on values from the source Observable until another Observable emits a value.
 // rxjs subject and bhaviroal subject.
-var delays$ = (0, rxjs_1.of)(1000, 2000, Infinity, 3000);
-delays$.pipe((0, rxjs_1.concatMap)(function (ms) {
-    if (ms < 10000) {
-        return (0, rxjs_1.timer)(ms);
-    }
-    else {
-        // Cleaner and easier to read for most folks.
-        // throw new Error(`Invalid time ${ ms }`);
-        return (0, rxjs_1.throwError)(function () { return new Error("Invalid time ".concat(ms)); });
-    }
-}))
-    .subscribe({
-    next: console.log,
-    error: console.error
+//const delays$ = of(1000, 2000, Infinity, 3000);
+// delays$.pipe(
+//   concatMap((ms:any) => {
+//     if (ms < 10000) {
+//       return timer(ms);
+//     } else {
+//       // Cleaner and easier to read for most folks.
+//      // throw new Error(`Invalid time ${ ms }`);
+//      return throwError(() => new Error(`Invalid time ${ ms }`));
+//     }
+//   })
+// )
+// .subscribe({
+//   next: console.log,
+//   error: console.error
+// });
+//...............................................
+var observable$ = new rxjs_1.Observable(function (observer) {
+    observer.next(1);
+    observer.next(2);
+    observer.next(3);
+    observer.complete();
 });
+var observer1 = {
+    next: function (data) {
+        console.log('observer 1' + data);
+    },
+    error: function (error) {
+        console.log(error);
+    },
+    complete: function () {
+        console.log('observer 1 complete');
+    },
+};
+var observer2 = {
+    next: function (data) {
+        console.log('observer 2' + data);
+    },
+    error: function (error) {
+        console.log(error);
+    },
+    complete: function () {
+        console.log('observer 2 complete');
+    },
+};
+observable$.subscribe(observer1); //1,2,3,complete
+observable$.subscribe(observer2); //1,2,3, complete
+//...................................
+observable$ = (0, rxjs_1.of)(1, 2, 3, 4, 5); //execute one tinme
+var subject = new rxjs_1.Subject();
+observer1 = {
+    next: function (data) {
+        console.log('observer 1' + data);
+    },
+    error: function (error) {
+        console.log(error);
+    },
+    complete: function () {
+        console.log('observer 1 complete');
+    },
+};
+observer2 = {
+    next: function (data) {
+        console.log('observer 2' + data);
+    },
+    error: function (error) {
+        console.log(error);
+    },
+    complete: function () {
+        console.log('observer 2 complete');
+    },
+};
+subject.subscribe(observer1);
+subject.subscribe(observer2);
+observable$.subscribe(subject);

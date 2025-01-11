@@ -1,4 +1,4 @@
-import { Observable, from, of, interval, concatMap,throwError, timer} from 'rxjs';
+import { Observable, from, Observer, Subject, of, interval, concatMap,throwError, timer} from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 // Create an Observable that emits an array of numbers
@@ -102,7 +102,7 @@ function fetchData(): Observable<any> {
      res.next('rxjs call method 2');
      res.next('rxjs call method 3');
      res.next();
- },1000);
+ },3);
       });
  observable2.pipe(
      filter((res:any)=>res=='rxjs call method 1'),
@@ -120,20 +120,88 @@ function fetchData(): Observable<any> {
 
 
 
-const delays$ = of(1000, 2000, Infinity, 3000);
+//const delays$ = of(1000, 2000, Infinity, 3000);
  
-delays$.pipe(
-  concatMap((ms:any) => {
-    if (ms < 10000) {
-      return timer(ms);
-    } else {
-      // Cleaner and easier to read for most folks.
-     // throw new Error(`Invalid time ${ ms }`);
-     return throwError(() => new Error(`Invalid time ${ ms }`));
-    }
-  })
-)
-.subscribe({
-  next: console.log,
-  error: console.error
-});
+// delays$.pipe(
+//   concatMap((ms:any) => {
+//     if (ms < 10000) {
+//       return timer(ms);
+//     } else {
+//       // Cleaner and easier to read for most folks.
+//      // throw new Error(`Invalid time ${ ms }`);
+//      return throwError(() => new Error(`Invalid time ${ ms }`));
+//     }
+//   })
+// )
+// .subscribe({
+//   next: console.log,
+//   error: console.error
+// });
+
+
+ //...............................................
+    let observable$ = new Observable<number>((observer:Observer<number>) => {
+      observer.next(1);
+      observer.next(2);
+      observer.next(3);
+      observer.complete();
+    });
+
+    let observer1 = {
+      next: (data: number) => {
+        console.log('observer 1' + data);
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+      complete: () => {
+        console.log('observer 1 complete');
+      },
+    };
+
+    let observer2 = {
+      next: (data: number) => {
+        console.log('observer 2' + data);
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+      complete: () => {
+        console.log('observer 2 complete');
+      },
+    };
+    observable$.subscribe(observer1); //1,2,3,complete
+    observable$.subscribe(observer2); //1,2,3, complete
+  //...................................
+
+  
+     observable$ = of(1, 2, 3, 4, 5); //execute one tinme
+    let subject = new Subject<number>();
+
+     observer1 = {
+      next: (data: number) => {
+        console.log('observer 1' + data);
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+      complete: () => {
+        console.log('observer 1 complete');
+      },
+    };
+
+     observer2 = {
+      next: (data: number) => {
+        console.log('observer 2' + data);
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+      complete: () => {
+        console.log('observer 2 complete');
+      },
+    };
+    subject.subscribe(observer1);
+    subject.subscribe(observer2);
+
+    observable$.subscribe(subject);
