@@ -1,0 +1,11 @@
+<div>HTTP request and retry error handle</div>
+
+<button (click)=getdata()>Get data</button>
+@if(data)
+{
+<div style="color: green;">{{data|json}}</div>
+}
+@if(errorMessage)
+{
+<div style="color: red;">{{errorMessage}}</div>
+}
