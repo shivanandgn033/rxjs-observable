@@ -3,6 +3,7 @@ import { HttprequestretryComponent } from './httprequestretry/httprequestretry.c
 import { CreationOperatorsComponent } from './creation-operators/creation-operators.component';
 import { TransformationOperatorsComponent } from './transformation-operators/transformation-operators.component';
 import { FilteringOperatorsComponent } from './filtering-operators/filtering-operators.component';
+import { ErrorHandlingOperatorsComponent } from './error-handling-operators/error-handling-operators.component';
 
 export const routes: Routes = [
     {
@@ -22,5 +23,9 @@ export const routes: Routes = [
     {
         path:'FilteringOperators',
         component:FilteringOperatorsComponent
+    },
+    {
+        path:'ErrorHandlingOperators',
+        component:ErrorHandlingOperatorsComponent
     }
 ];
