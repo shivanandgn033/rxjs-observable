@@ -4,6 +4,7 @@ import { CreationOperatorsComponent } from './creation-operators/creation-operat
 import { TransformationOperatorsComponent } from './transformation-operators/transformation-operators.component';
 import { FilteringOperatorsComponent } from './filtering-operators/filtering-operators.component';
 import { ErrorHandlingOperatorsComponent } from './error-handling-operators/error-handling-operators.component';
+import { UtilityOperatorsComponent } from './utility-operators/utility-operators.component';
 
 export const routes: Routes = [
     {
@@ -27,5 +28,9 @@ export const routes: Routes = [
     {
         path:'ErrorHandlingOperators',
         component:ErrorHandlingOperatorsComponent
+    },
+    {
+        path:'UtilityOperators',
+        component:UtilityOperatorsComponent 
     }
 ];
